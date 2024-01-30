@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './main.css'
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'aishik.dev - Personal site of Aishik Saha',
@@ -32,6 +33,7 @@ export default function RootLayout({
           <br />
           © Copyright 2023 Aishik Saha
         </footer>
+        <Analytics />
       </body>
     </html>
   )
