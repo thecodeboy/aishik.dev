@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './main.css'
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'aishik.dev - Personal site of Aishik Saha',
@@ -24,7 +25,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable}`}>
       <body className='bg-gray-100 text-gray-700 antialiased mx-auto mt-16 mb-8 max-w-[692px] px-6'>
         <header className="flex flex-col items-start">
-          <a className="text-medium inline-block font-medium no-underline" href="/">Aishik Saha</a>
+          <Link className="text-medium inline-block font-medium no-underline" href="/">Aishik Saha</Link>
           <span className="text-medium font-medium leading-none text-gray-500">Senior Software Engineer</span>
         </header>
         {children}
