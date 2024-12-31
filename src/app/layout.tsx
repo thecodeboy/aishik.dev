@@ -33,7 +33,7 @@ export default function RootLayout({
           Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License,
           and code samples are licensed under the MIT License.
           <br />
-          © Copyright 2023 Aishik Saha
+          © Copyright 2024 Aishik Saha
         </footer>
         <Analytics />
         <SpeedInsights />
