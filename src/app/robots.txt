@@ -1,0 +1,3 @@
+Sitemap: https://aishik.dev/sitemap.xml
+User-agent: *
+Disallow:
