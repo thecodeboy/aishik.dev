@@ -13,9 +13,10 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>Aishik Saha's Blog</title>
+  <title>aishik.dev - Personal site of Aishik Saha</title>
   <link>${baseUrl}</link>
-  <description>Senior Software Engineer writing about platforms and distributed systems</description>
+  <description>Aishik Saha is a senior software engineer. This is his personal site. 
+    He is passionate about building platforms and distributed systems.</description>
   <language>en</language>
   <lastBuildDate>${buildDate}</lastBuildDate>
   <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
