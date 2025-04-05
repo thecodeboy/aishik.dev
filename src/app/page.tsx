@@ -13,7 +13,7 @@ export default function Home() {
         </p>
       </div>
 
-      { /* Recent Posts */}
+      {/* Recent Posts */}
 
       {latestPosts.length > 0 && (
         <div className="mt-16 mb-20">
@@ -36,31 +36,37 @@ export default function Home() {
         </div>
       )}
 
-      { /* Work Showcase */}
+      {/* Work Showcase */}
 
       <h2 className="text-2xl font-semibold mb-6">Work Experience</h2>
 
-      <div className="mt-10 border rounded-2xl p-4 text-[#4e9246]" style={{ backgroundColor: '#83d67c' }}>
+      <div
+        className="mt-10 border rounded-2xl p-4 text-[#4e9246] bg-[#83d67c] dark:text-[#83d67c] dark:bg-[#4e9246] dark:border-[#4e9246]">
         <h1 className="text-xl font-bold">ServiceNow</h1>
         <h2 className="text-white font-bold">Dec 2020 - Present</h2>
         <p className="text-white font-semibold">
-          Building the AI Development Platform as part of the GenAI Development Platform team.
-          I&apos;ve worked on extracting customer data into a custom built data lake. Created a Jupyter notebook
-          self service platform to experiment with this data.
+          Building the AI Development Platform as part of the GenAI Development Platform team. I&apos;ve worked on
+          extracting customer data into a custom built data lake. Created a Jupyter notebook self service platform to
+          experiment with this data.
         </p>
       </div>
 
-      <div className="mt-10 border rounded-2xl p-4 text-[#f9f3f1]" style={{ backgroundColor: '#ac7a8f' }}>
+      <div
+        className="mt-10 border rounded-2xl p-4 text-[#f9f3f1] bg-[#ac7a8f] dark:text-[#f9f3f1] dark:border-[#ac7a8f]">
         <h1 className="text-xl font-bold">DBS Bank</h1>
         <h2 className="text-white font-bold">Jul 2018 - Dec 2020</h2>
         <p className="text-white font-semibold">
           Founding engineer to build the bank&apos;s new internal API marketplace. Also worked on DBS Developers Portal.
-          I was a full stack engineer and built the frontend with Angular and backend services with Spring Boot and Java.
+          I was a full stack engineer and built the frontend with Angular and backend services with Spring Boot and
+          Java.
         </p>
       </div>
 
       <div className="mt-10">
-        Connect with me on <a className="underline" href="https://www.linkedin.com/in/thecodeboy">LinkedIn</a>.
+        Connect with me on{" "}
+        <a className="underline dark:text-blue-300" href="https://www.linkedin.com/in/thecodeboy">
+          LinkedIn
+        </a>
       </div>
     </>
   )
