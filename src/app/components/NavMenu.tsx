@@ -37,7 +37,8 @@ export default function NavMenu() {
                 <ThemeToggle />
             </div>
             {/* Mobile Navigation - Burger Menu */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center justify-between">
+                <ThemeToggle />
                 <button
                     onClick={toggleMenu}
                     className="p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -45,7 +46,6 @@ export default function NavMenu() {
                 >
                     {isOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
-
                 {isOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-lg py-1 z-10 border border-gray-200 dark:border-gray-700">
                         <Link
@@ -69,9 +69,6 @@ export default function NavMenu() {
                         >
                             RSS
                         </Link>
-                        <div className="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
-                            <ThemeToggle />
-                        </div>
                     </div>
                 )}
             </div>
