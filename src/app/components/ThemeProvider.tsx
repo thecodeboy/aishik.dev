@@ -24,7 +24,13 @@ const initialState: ThemeProviderState = {
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({ children, defaultTheme = "system", ...props }: ThemeProviderProps) {
-    const [theme, setTheme] = useState<Theme>(defaultTheme)
+    const [theme, setTheme] = useState<Theme>(() => {
+        if (typeof window !== "undefined") {
+            const savedTheme = localStorage.getItem("theme") as Theme
+            return savedTheme || defaultTheme
+        }
+        return defaultTheme
+    })
 
     useEffect(() => {
         const root = window.document.documentElement
