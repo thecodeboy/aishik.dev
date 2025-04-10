@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./main.css"
 import { Analytics } from "@vercel/analytics/react"
@@ -8,9 +8,31 @@ import NavMenu from "./components/NavMenu"
 import { ThemeProvider } from "./components/ThemeProvider"
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://aishik.dev'),
   title: "aishik.dev - Personal site of Aishik Saha",
   description: "Aishik Saha is a Senior Software Engineer. This is his personal site.",
+  openGraph: {
+    title: "aishik.dev - Personal site of Aishik Saha",
+    type: "website",
+    url: "https://aishik.dev",
+    images: [
+      {
+        url: "/og-image.png",
+        alt: "Aishik Saha - Personal site preview image",
+      },
+    ],
+  },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  }
+};
+
+
+export const viewport: Viewport = {
+  themeColor: '#f3f4f6',
 }
+
 
 const inter = Inter({
   subsets: ["latin"],
