@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { HomeIcon as House, Menu, NotebookText, Rss, X } from "lucide-react"
+import { HomeIcon as House, Menu, NotebookText, Rss, X, Images } from "lucide-react"
 import { ThemeToggle } from "./ThemeToggle"
 
 export default function NavMenu() {
@@ -15,7 +15,7 @@ export default function NavMenu() {
     return (
         <div className="relative">
             {/* Desktop Navigation - Horizontal Links */}
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden md:flex items-center">
                 <Link
                     href="/"
                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 font-medium p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -28,7 +28,12 @@ export default function NavMenu() {
                 >
                     <NotebookText /> Posts
                 </Link>
-
+                <Link
+                    href="/photos"
+                    className="flex items-center gap-1 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 font-medium p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                    <Images /> Photos
+                </Link>
                 <Link
                     href="/feed.xml"
                     className="flex items-center gap-1 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 font-medium p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -75,7 +80,13 @@ export default function NavMenu() {
                             >
                                 <NotebookText /> Posts
                             </Link>
-
+                            <Link
+                                href="/photos"
+                                className="flex items-center gap-4 px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <Images /> Photos
+                            </Link>
                             <Link
                                 href="/feed.xml"
                                 className="flex items-center gap-4 px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg"
