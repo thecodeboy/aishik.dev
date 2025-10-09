@@ -6,6 +6,14 @@ export type Post = {
     title: string
     date: string
     excerpt: string
+    externalUrl?: string
+}
+
+type ExternalPost = {
+    title: string
+    date: string
+    excerpt: string
+    url: string
 }
 
 export function getAllPosts(): Post[] {
@@ -18,7 +26,7 @@ export function getAllPosts(): Post[] {
     })
 
     // For each post, extract metadata
-    const posts = postSlugs.map((slug) => {
+    const localPosts = postSlugs.map((slug) => {
         // Read the MDX file
         const mdxPath = path.join(postsDirectory, slug, "page.mdx")
         const fileContents = fs.readFileSync(mdxPath, "utf8")
@@ -43,13 +51,32 @@ export function getAllPosts(): Post[] {
         }
     })
 
-    // Sort posts by date (newest first)
-    return posts.sort((a, b) => {
-        if (a.date < b.date) {
-            return 1
-        } else {
-            return -1
-        }
+    // Load external posts from JSON
+    const externalPostsPath = path.join(postsDirectory, "external-posts.json")
+    let externalPosts: Post[] = []
+    
+    if (fs.existsSync(externalPostsPath)) {
+        const externalPostsData: ExternalPost[] = JSON.parse(
+            fs.readFileSync(externalPostsPath, "utf8")
+        )
+        externalPosts = externalPostsData.map((post) => ({
+            slug: post.url, // Use URL as slug for external posts
+            title: post.title,
+            date: post.date,
+            excerpt: post.excerpt,
+            externalUrl: post.url,
+        }))
+    }
+
+    // Combine and sort all posts by date (newest first)
+    const allPosts = [...localPosts, ...externalPosts]
+    return allPosts.sort((a, b) => {
+        // Parse dates in format "DD MMM YYYY" or "D MMM YYYY"
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        
+        // Sort in descending order (newest first)
+        return dateB.getTime() - dateA.getTime()
     })
 }
 

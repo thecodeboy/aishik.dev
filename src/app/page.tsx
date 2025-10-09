@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/lib/posts"
+import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {
@@ -21,10 +22,19 @@ export default function Home() {
           <div className="space-y-6">
             {latestPosts.map((post) => (
               <div key={post.slug}>
-                <Link href={`/posts/${post.slug}`} className="group">
-                  <h3 className="text-lg font-medium group-hover:text-gray-600 transition-colors">{post.title}</h3>
-                  <p className="text-sm text-gray-500 mt-1">{post.date}</p>
-                </Link>
+                {post.externalUrl ? (
+                  <a href={post.externalUrl} target="_blank" rel="noopener noreferrer" className="group">
+                    <h3 className="text-lg font-medium group-hover:text-gray-600 transition-colors">
+                      {post.title} <ArrowUpRight className="inline-block" />
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+                  </a>
+                ) : (
+                  <Link href={`/posts/${post.slug}`} className="group">
+                    <h3 className="text-lg font-medium group-hover:text-gray-600 transition-colors">{post.title}</h3>
+                    <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

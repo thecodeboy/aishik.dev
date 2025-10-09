@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { getAllPosts } from "@/lib/posts"
+import { ArrowUpRight } from "lucide-react"
 
 export default function Posts() {
   const posts = getAllPosts()
@@ -11,16 +12,29 @@ export default function Posts() {
       <div className="space-y-10">
         {posts.map((post) => (
           <div key={post.slug} className="border-b border-gray-200 dark:border-gray-700 pb-8 last:border-0">
-            <Link href={`/posts/${post.slug}`} className="group">
-              <h2 className="text-xl font-semibold group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
-                {post.title}
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-3">{post.date}</p>
-              <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
-              <span className="inline-block mt-3 text-gray-600 dark:text-gray-400 font-medium group-hover:underline">
-                Read more →
-              </span>
-            </Link>
+            {post.externalUrl ? (
+              <a href={post.externalUrl} target="_blank" rel="noopener noreferrer" className="group">
+                <h2 className="text-xl font-semibold group-hover:text-gray-500 dark:group-hover:text-gray-300 transition-colors">
+                  {post.title} <ArrowUpRight className="inline-block" />
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-3">{post.date}</p>
+                <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
+                <span className="inline-block mt-3 text-gray-600 dark:text-gray-400 font-medium group-hover:underline">
+                  Read on Medium →
+                </span>
+              </a>
+            ) : (
+              <Link href={`/posts/${post.slug}`} className="group">
+                <h2 className="text-xl font-semibold group-hover:text-gray-500 dark:group-hover:text-gray-300 transition-colors">
+                  {post.title}
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-3">{post.date}</p>
+                <p className="text-gray-700 dark:text-gray-300">{post.excerpt}</p>
+                <span className="inline-block mt-3 text-gray-600 dark:text-gray-400 font-medium group-hover:underline">
+                  Read more →
+                </span>
+              </Link>
+            )}
           </div>
         ))}
 
