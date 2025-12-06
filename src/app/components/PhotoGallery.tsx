@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
 
@@ -20,16 +20,20 @@ type GalleryProps = {
 export default function PhotoGallery({ photos }: GalleryProps) {
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
 
+    useEffect(() => {
+        if (selectedPhoto) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "auto"
+        }
+    }, [selectedPhoto])
+
     const openPhoto = (photo: Photo) => {
         setSelectedPhoto(photo)
-        // Prevent scrolling when modal is open
-        document.body.style.overflow = "hidden"
     }
 
     const closePhoto = () => {
         setSelectedPhoto(null)
-        // Re-enable scrolling
-        document.body.style.overflow = "auto"
     }
 
     return (
