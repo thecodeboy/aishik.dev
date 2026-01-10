@@ -75,6 +75,11 @@ export function getAllPosts(): Post[] {
         const dateA = new Date(a.date)
         const dateB = new Date(b.date)
         
+        // Check for invalid dates
+        if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+            return 0;
+        }
+        
         // Sort in descending order (newest first)
         return dateB.getTime() - dateA.getTime()
     })

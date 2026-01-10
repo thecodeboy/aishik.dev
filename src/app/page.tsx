@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Home() {
   const latestPosts = getAllPosts().slice(0, 3)
-  console.log(latestPosts)
+  
   return (
     <>
       <div className="mt-40">
@@ -51,7 +51,7 @@ export default function Home() {
       <h2 className="text-2xl font-semibold mb-6">Work Experience</h2>
 
       <div
-        className="mt-10 border rounded-2xl p-4 text-[#4e9246] bg-[#83d67c] dark:text-[#83d67c] dark:bg-[#4e9246] dark:border-[#4e9246]">
+        className="mt-10 border rounded-2xl p-4 text-green-800 bg-green-300 border-green-300 dark:text-green-100 dark:bg-green-800 dark:border-green-800">
         <h1 className="text-xl font-bold">ServiceNow</h1>
         <h2 className="text-white font-bold">Dec 2020 - Present</h2>
         <p className="text-white font-semibold">
@@ -62,7 +62,7 @@ export default function Home() {
       </div>
 
       <div
-        className="mt-10 border rounded-2xl p-4 text-[#f9f3f1] bg-[#ac7a8f] dark:text-[#f9f3f1] dark:border-[#ac7a8f]">
+        className="mt-10 border rounded-2xl p-4 text-rose-50 bg-rose-400 border-rose-400 dark:text-rose-100 dark:bg-rose-800 dark:border-rose-800">
         <h1 className="text-xl font-bold">DBS Bank</h1>
         <h2 className="text-white font-bold">Jul 2018 - Dec 2020</h2>
         <p className="text-white font-semibold">
