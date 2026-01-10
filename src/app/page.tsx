@@ -27,12 +27,28 @@ export default function Home() {
                     <h3 className="text-lg font-medium group-hover:text-gray-600 transition-colors">
                       {post.title} <ArrowUpRight className="inline-block" />
                     </h3>
-                    <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+                    <div className="flex gap-2 text-sm text-gray-500 mt-1">
+                      <p>{post.date}</p>
+                      {post.readingTime && (
+                        <>
+                          <span>•</span>
+                          <p>{post.readingTime}</p>
+                        </>
+                      )}
+                    </div>
                   </a>
                 ) : (
                   <Link href={`/posts/${post.slug}`} className="group">
                     <h3 className="text-lg font-medium group-hover:text-gray-600 transition-colors">{post.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{post.date}</p>
+                    <div className="flex gap-2 text-sm text-gray-500 mt-1">
+                      <p>{post.date}</p>
+                      {post.readingTime && (
+                        <>
+                          <span>•</span>
+                          <p>{post.readingTime}</p>
+                        </>
+                      )}
+                    </div>
                   </Link>
                 )}
               </div>

@@ -6,6 +6,7 @@ export type Post = {
     title: string
     date: string
     excerpt: string
+    readingTime?: string
     externalUrl?: string
 }
 
@@ -14,6 +15,13 @@ type ExternalPost = {
     date: string
     excerpt: string
     url: string
+}
+
+function calculateReadingTime(content: string): string {
+    const wordsPerMinute = 200;
+    const words = content.trim().split(/\s+/).length;
+    const minutes = Math.ceil(words / wordsPerMinute);
+    return `${minutes} min read`;
 }
 
 export function getAllPosts(): Post[] {
@@ -43,11 +51,15 @@ export function getAllPosts(): Post[] {
         const excerptMatch = fileContents.match(/# .*\n\nPublished on .*\n\n(.*)/)
         const excerpt = excerptMatch ? excerptMatch[1].substring(0, 150) + "..." : ""
 
+        // Calculate reading time
+        const readingTime = calculateReadingTime(fileContents);
+
         return {
             slug,
             title,
             date,
             excerpt,
+            readingTime,
         }
     })
 
