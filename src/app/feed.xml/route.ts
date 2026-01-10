@@ -1,13 +1,13 @@
-import { getAllPosts } from "@/lib/posts"
-import { NextResponse } from "next/server"
+import { getAllPosts } from "@/lib/posts";
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const posts = getAllPosts()
-  const baseUrl = "https://aishik.dev"
+  const posts = getAllPosts();
+  const baseUrl = "https://aishik.dev";
 
   // Format the current date according to RFC 822
-  const now = new Date()
-  const buildDate = now.toUTCString()
+  const now = new Date();
+  const buildDate = now.toUTCString();
 
   // Create the RSS XML
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -15,30 +15,30 @@ export async function GET() {
 <channel>
   <title>aishik.dev - Personal site of Aishik Saha</title>
   <link>${baseUrl}</link>
-  <description>Aishik Saha is a senior software engineer. This is his personal site. 
+  <description>Aishik Saha is a senior machine learning engineer. This is his personal site. 
     He is passionate about building platforms and distributed systems.</description>
   <language>en</language>
   <lastBuildDate>${buildDate}</lastBuildDate>
   <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
   ${posts
-      .map((post) => {
-        const dateObj = new Date(post.date)
-        const pubDate = isNaN(dateObj.getTime())
-          ? post.date
-          : dateObj.toUTCString()
+    .map((post) => {
+      const dateObj = new Date(post.date);
+      const pubDate = isNaN(dateObj.getTime())
+        ? post.date
+        : dateObj.toUTCString();
 
-        return `
+      return `
   <item>
     <title><![CDATA[${post.title}]]></title>
     <link>${baseUrl}/posts/${post.slug}</link>
     <guid isPermaLink="true">${baseUrl}/posts/${post.slug}</guid>
     <pubDate>${pubDate}</pubDate>
     <description><![CDATA[${post.excerpt}]]></description>
-  </item>`
-      })
-      .join("")}
+  </item>`;
+    })
+    .join("")}
 </channel>
-</rss>`
+</rss>`;
 
   // Return the RSS feed with the appropriate content type
   return new NextResponse(rss, {
@@ -46,5 +46,5 @@ export async function GET() {
       "Content-Type": "application/xml",
       "Cache-Control": "public, max-age=3600, s-maxage=3600",
     },
-  })
+  });
 }

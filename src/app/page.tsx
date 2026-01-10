@@ -10,8 +10,8 @@ export default function Home() {
       <div className="mt-40">
         <h1>Hello there!</h1>
         <p>
-          I&apos;m a senior software engineer working at ServiceNow. I like
-          building platforms and distributed systems.
+          I&apos;m a senior machine learning engineer working at ServiceNow. I
+          like building platforms and distributed systems.
         </p>
       </div>
 
