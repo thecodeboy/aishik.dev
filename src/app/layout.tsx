@@ -45,8 +45,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Aishik Saha",
+    "url": "https://aishik.dev",
+    "jobTitle": "Senior Software Engineer",
+    "sameAs": [
+      "https://www.linkedin.com/in/thecodeboy",
+      "https://github.com/thecodeboy"
+    ]
+  }
+
   return (
     <html lang="en" className={`${inter.variable}`}>
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Aishik Saha's Blog"
+          href="/feed.xml"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200 antialiased flex flex-col min-h-screen mx-auto max-w-[692px] px-6">
         <ThemeProvider>
           <div className="pt-16 pb-8 flex-grow flex flex-col">
