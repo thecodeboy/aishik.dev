@@ -10,7 +10,6 @@ export type Post = {
   isExternal: boolean;
   publishedAt: number;
   readingTime?: string;
-  externalUrl?: string;
 };
 
 type ExternalPost = {
@@ -52,7 +51,13 @@ function stripMdxSyntax(value: string): string {
   return value
     .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[`*_>#]/g, "")
+    .replace(/^\s{0,3}#{1,6}\s/gm, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/__(.+?)__/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/_(.+?)_/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^\s{0,3}>\s?/gm, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -95,6 +100,8 @@ function normalizeDate(rawDate: string): {
       sortValue: parsed,
     };
   }
+
+  console.warn(`normalizeDate: could not parse date "${trimmed}"`);
 
   return {
     displayDate: trimmed,
@@ -146,7 +153,7 @@ export function getAllPosts(): Post[] {
       href: `/posts/${slug}`,
       isExternal: false,
       publishedAt: sortValue,
-      readingTime: calculateReadingTime(fileContents),
+      readingTime: calculateReadingTime(stripMdxSyntax(fileContents)),
     };
   });
 
@@ -167,7 +174,6 @@ export function getAllPosts(): Post[] {
         date: displayDate,
         excerpt: truncate(stripMdxSyntax(post.excerpt), 170),
         href: post.url,
-        externalUrl: post.url,
         isExternal: true,
         publishedAt: sortValue,
       };

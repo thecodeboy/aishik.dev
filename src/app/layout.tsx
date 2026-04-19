@@ -104,7 +104,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
-          <div className="relative isolate min-h-screen overflow-hidden">
+          <div className="relative isolate min-h-screen overflow-x-hidden">
             <div className="pointer-events-none absolute inset-0 -z-10">
               <div className="animate-float absolute left-[-7rem] top-10 h-72 w-72 rounded-full bg-emerald-300/30 blur-3xl dark:bg-emerald-500/[0.12]" />
               <div
