@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Space_Grotesk } from "next/font/google";
 import "./main.css";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import Link from "next/link";
 import NavMenu from "./components/NavMenu";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -157,9 +155,6 @@ export default function RootLayout({
               </footer>
             </div>
           </div>
-
-          <Analytics />
-          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
