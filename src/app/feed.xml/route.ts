@@ -22,16 +22,16 @@ export async function GET() {
   <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
   ${posts
     .map((post) => {
-      const dateObj = new Date(post.date);
-      const pubDate = isNaN(dateObj.getTime())
-        ? post.date
-        : dateObj.toUTCString();
+      const link = post.isExternal ? post.href : `${baseUrl}${post.href}`;
+      const pubDate = post.publishedAt
+        ? new Date(post.publishedAt).toUTCString()
+        : post.date;
 
       return `
   <item>
     <title><![CDATA[${post.title}]]></title>
-    <link>${baseUrl}/posts/${post.slug}</link>
-    <guid isPermaLink="true">${baseUrl}/posts/${post.slug}</guid>
+    <link>${link}</link>
+    <guid isPermaLink="true">${link}</guid>
     <pubDate>${pubDate}</pubDate>
     <description><![CDATA[${post.excerpt}]]></description>
   </item>`;

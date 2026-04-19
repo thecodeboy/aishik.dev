@@ -1,98 +1,142 @@
-"use client"
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { X } from "lucide-react"
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { X } from "lucide-react";
 
 // Define the photo data structure
 export type Photo = {
-    id: number
-    src: string
-    alt: string
-    width: number
-    height: number
-    description: string
-}
+  id: number;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  description: string;
+};
 
 type GalleryProps = {
-    photos: Photo[]
-}
+  photos: Photo[];
+};
 
 export default function PhotoGallery({ photos }: GalleryProps) {
-    const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
-    useEffect(() => {
-        if (selectedPhoto) {
-            document.body.style.overflow = "hidden"
-        } else {
-            document.body.style.overflow = "auto"
-        }
-    }, [selectedPhoto])
-
-    const openPhoto = (photo: Photo) => {
-        setSelectedPhoto(photo)
+  useEffect(() => {
+    if (!selectedPhoto) {
+      document.body.style.overflow = "";
+      return;
     }
 
-    const closePhoto = () => {
-        setSelectedPhoto(null)
-    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedPhoto(null);
+      }
+    };
 
-    return (
-        <>
-            {/* Photo Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {photos.map((photo) => (
-                    <div
-                        key={photo.id}
-                        className="group flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
-                    >
-                        <div className="relative overflow-hidden cursor-pointer" onClick={() => openPhoto(photo)}>
-                            <div className="aspect-[4/3] relative">
-                                <Image
-                                    src={photo.src || "/placeholder.svg"}
-                                    alt={photo.alt}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                />
-                            </div>
-                            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                        </div>
-                        <div className="p-4">
-                            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{photo.description}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
 
-            {/* Modal for enlarged photo */}
-            {selectedPhoto && (
-                <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={closePhoto}>
-                    <div
-                        className="relative max-w-5xl w-full flex flex-col"
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the photo
-                    >
-                        <button
-                            onClick={closePhoto}
-                            className="absolute top-2 right-2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
-                            aria-label="Close photo"
-                        >
-                            <X size={24} />
-                        </button>
-                        <div className="relative w-full flex items-center justify-center">
-                            <Image
-                                src={selectedPhoto.src || "/placeholder.svg"}
-                                alt={selectedPhoto.alt}
-                                width={selectedPhoto.width}
-                                height={selectedPhoto.height}
-                                className="object-contain max-h-[75vh] rounded-lg"
-                            />
-                        </div>
-                        <div className="mt-4 bg-white/10 backdrop-blur-sm p-4 rounded-lg text-white max-w-3xl mx-auto">
-                            <p className="text-center">{selectedPhoto.description}</p>
-                        </div>
-                    </div>
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedPhoto]);
+
+  return (
+    <>
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {photos.map((photo) => (
+          <button
+            key={photo.id}
+            type="button"
+            onClick={() => setSelectedPhoto(photo)}
+            className="group text-left"
+          >
+            <div className="overflow-hidden rounded-[30px] border border-black/5 bg-white/70 p-3 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:bg-white dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_60px_rgba(2,6,23,0.34)] dark:hover:border-white/20 dark:hover:bg-slate-900/[0.82]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[24px]">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                      Photo note
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-white">
+                      {photo.description}
+                    </p>
+                  </div>
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                    Open
+                  </span>
                 </div>
-            )}
-        </>
-    )
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {selectedPhoto ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/[0.88] px-4 py-8 backdrop-blur-xl"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div
+            className="relative w-full max-w-6xl rounded-[34px] border border-white/10 bg-black/20 p-3 shadow-[0_30px_120px_rgba(0,0,0,0.55)] sm:p-4"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="selected-photo-title"
+          >
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute right-5 top-5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/[0.35] text-white transition hover:bg-black/50"
+              aria-label="Close photo"
+              type="button"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+              <div className="flex min-h-[40vh] items-center justify-center overflow-hidden rounded-[28px] bg-black/[0.35] p-4 sm:p-6">
+                <Image
+                  src={selectedPhoto.src}
+                  alt={selectedPhoto.alt}
+                  width={selectedPhoto.width}
+                  height={selectedPhoto.height}
+                  className="h-auto max-h-[78vh] w-auto max-w-full rounded-[20px] object-contain"
+                />
+              </div>
+
+              <div className="flex flex-col justify-between rounded-[28px] border border-white/10 bg-white/10 p-6 text-white backdrop-blur-md">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">
+                    Photo note
+                  </p>
+                  <h2
+                    id="selected-photo-title"
+                    className="mt-3 text-3xl font-semibold tracking-tight"
+                  >
+                    {selectedPhoto.description}
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-white/75">
+                    {selectedPhoto.alt}
+                  </p>
+                </div>
+
+                <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-white/[0.45]">
+                  Press Esc to close
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 }

@@ -12,31 +12,35 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^16.0.7",
+    "@next/mdx": "^16.2.4",
     "@types/mdx": "^2.0.13",
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.562.0",
-    "next": "^16.0.7",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "lucide-react": "^1.8.0",
+    "next": "^16.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.15",
-    "@types/node": "^20",
-    "@types/react": "^19.2.8",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^20.19.39",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^9.39.1",
-    "eslint-config-next": "^16.1.1",
-    "feed": "^4.2.2",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.4",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.7",
-    "postcss": "^8",
-    "prettier": "^3.7.4",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "lint-staged": "^16.4.0",
+    "postcss": "^8.5.10",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "flatted": "^3.4.1",
+    "yaml": "^2.8.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

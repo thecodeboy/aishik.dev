@@ -1,17 +1,17 @@
-import type { MetadataRoute } from "next"
-import { getAllPosts } from "@/lib/posts"
+import type { MetadataRoute } from "next";
+import { getAllPosts } from "@/lib/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://aishik.dev"
-  const posts = getAllPosts()
+  const baseUrl = "https://aishik.dev";
+  const posts = getAllPosts().filter((post) => !post.isExternal);
 
   // Create sitemap entries for all blog posts
   const postEntries = posts.map((post) => ({
-    url: `${baseUrl}/posts/${post.slug}`,
-    lastModified: new Date(),
+    url: `${baseUrl}${post.href}`,
+    lastModified: post.publishedAt ? new Date(post.publishedAt) : new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
-  }))
+  }));
 
   // Add static pages
   return [
@@ -34,5 +34,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...postEntries,
-  ]
+  ];
 }
